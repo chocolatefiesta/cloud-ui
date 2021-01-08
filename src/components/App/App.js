@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import './App.css';
+import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+import './App.css';
 import Login from '../Login/Login';
-import Dashboard from '../Dashboard/Dashboard';
+import DrawPrint from '../DrawPrint/DrawPrint';
 import Library from '../Library/Library';
-import useUser from './useUser';
-import Navbar from 'react-bootstrap/Navbar'
-import Nav from 'react-bootstrap/Nav'
-import Container from 'react-bootstrap/Container'
+import Navigation from '../Navigation/Navigation';
+import Slicer from '../Slicer/Slicer';
+import { useUser, UserContext } from './useUser';
+import DrawApp from '../DrawApp/DrawApp';
 
 function App() {
-  const { user, setUser } = useUser();
+  const { user, setUser, removeUser } = useUser();
 
   if (!user) {
     return <Login setUser={setUser} />
@@ -18,30 +19,32 @@ function App() {
 
   return (
     <>
-      <Navbar className="justify-content-between" expand="md">
-        <Navbar.Brand href="#home">Chocolate Fiesta Cloud</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link href="#home">Печать</Nav.Link>
-            <Nav.Link href="/dashboard">Рисунки</Nav.Link>
-            <Nav.Link href="/library">Библиотека моделей</Nav.Link>
-            <Nav.Link href="#link">Конструктор</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+      <UserContext.Provider value={{ user, setUser, removeUser }} >
 
-      <BrowserRouter>
-        <Switch>
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route>
-          <Route path="/library">
-            <Library />
-          </Route>
-        </Switch>
-      </BrowserRouter>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/draw">
+              <DrawApp />
+            </Route>
+            <Route path="/">
+              <Navigation />
+              <Route exact path="/">
+                <Library />
+              </Route>
+              <Route path="/draw-print">
+                <DrawPrint />
+              </Route>
+              <Route path="/library">
+                <Library />
+              </Route>
+              <Route path="/slicer">
+                <Slicer />
+              </Route>
+            </Route>
 
+          </Switch>
+        </BrowserRouter>
+      </UserContext.Provider>
     </>
   );
 }

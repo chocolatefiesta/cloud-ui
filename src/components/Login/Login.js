@@ -1,11 +1,10 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Login.css';
-import { auth } from './firebase';
+import { auth } from '../App/firebase';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import logo from './logo.png';
+import logo from '../App/logo.png';
 
 export default function Login({ setUser }) {
   const [email, setEmail] = useState();

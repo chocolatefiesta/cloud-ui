@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useState, createContext } from 'react';
 
-export default function useUser() {
+
+export const UserContext = createContext();
+
+export function useUser() {
   const getUser = () => {
     const userString = localStorage.getItem('user');
     const user = userString ? JSON.parse(userString) : null;
@@ -13,8 +16,13 @@ export default function useUser() {
     setUser(user);
   };
 
+  const removeUser = () => {
+    saveUser(null);
+  };
+
   return {
     setUser: saveUser,
-    user
+    user,
+    removeUser
   }
 }
