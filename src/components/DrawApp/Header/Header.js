@@ -12,7 +12,7 @@ export function Header() {
                     </Navbar.Brand>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ml-auto">
-                            <Nav.Link href="/drawing-print">Перейти к печати</Nav.Link>
+                            <Nav.Link href="/draw-print">Перейти к печати</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>

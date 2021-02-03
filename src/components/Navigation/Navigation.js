@@ -23,11 +23,11 @@ export default function Navigation() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link href="/library">Библиотека моделей</Nav.Link>
-                        <Nav.Link href="/drawing-print">Печать рисунка</Nav.Link>
+                        {/* <Nav.Link href="/library">Библиотека моделей</Nav.Link> */}
+                        <Nav.Link href="/draw-print">Печать рисунка</Nav.Link>
                         <Nav.Link href="/draw">Рисование</Nav.Link>
-                        <Nav.Link href="/text2stl">Конструктор 3D текста</Nav.Link>
-                        <Nav.Link href="#">Слайсер</Nav.Link>
+                        <Nav.Link href="/stl-generator">Конструктор 3D текста</Nav.Link>
+                        {/* <Nav.Link href="#">Слайсер</Nav.Link> */}
                     </Nav>
                     <Nav className="ml-auto">
                         <Nav.Link disabled={true}>Вы вошли как {user.user.email}</Nav.Link>

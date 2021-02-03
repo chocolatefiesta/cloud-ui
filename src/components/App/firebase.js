@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/storage";
 
 export const firebaseConfig = {
     apiKey: "AIzaSyDsEXIV0OTzWuRX4XBiVB4a-3w4bP_fnCs",
@@ -11,7 +12,9 @@ export const firebaseConfig = {
     appId: "1:419100703725:web:42a642a456befea15045e4"
 };
 
-export const firebaseUserDrawingCollection = 'user-drawing';
+export const storageUserFolder = 'user';
+export const firestoreUserDrawingCollection = 'user-drawing';
+export const userDrawingGcodeFilename = 'drawing.gcode';
 
 export const firestoreAutoId = () => {
     const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -29,3 +32,12 @@ export const firestoreAutoId = () => {
 firebase.initializeApp(firebaseConfig);
 export const auth = firebase.auth();
 export const db = firebase.firestore();
+export const storage = firebase.storage();
+
+export const firestoreUserDrawingDocument = (uid) => {
+  return db.collection(firestoreUserDrawingCollection).doc(uid)
+}
+
+export const storageUserDrawingGcodeRef = (uid) => {
+  return storage.ref(storageUserFolder).child(uid).child(userDrawingGcodeFilename)
+}

@@ -30,7 +30,7 @@ export const CanvasProvider = ({ children }) => {
     context.scale(2, 2);
     context.lineCap = "round";
     context.strokeStyle = "brown";
-    context.lineWidth = 10;
+    context.lineWidth = 20;
     contextRef.current = context;
     setPrepared(true);
   };
@@ -55,7 +55,7 @@ export const CanvasProvider = ({ children }) => {
     const { offsetX, offsetY } = nativeEvent;
     contextRef.current.lineTo(offsetX, offsetY);
     contextRef.current.stroke();
-    if (counter % 3 === 0) {
+    if (counter % 2 === 0) {
       setX([...x, offsetX]);
       setY([...y, offsetY]);
     };

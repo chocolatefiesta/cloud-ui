@@ -9,6 +9,7 @@ import Navigation from '../Navigation/Navigation';
 import Slicer from '../Slicer/Slicer';
 import { useUser, UserContext } from './useUser';
 import DrawApp from '../DrawApp/DrawApp';
+import STLGenerator from '../STLGenerator/STLGenerator';
 
 function App() {
   const { user, setUser, removeUser } = useUser();
@@ -29,7 +30,8 @@ function App() {
             <Route path="/">
               <Navigation />
               <Route exact path="/">
-                <Library />
+                {/* <Library /> */}
+                <DrawPrint />
               </Route>
               <Route path="/draw-print">
                 <DrawPrint />
@@ -39,6 +41,9 @@ function App() {
               </Route>
               <Route path="/slicer">
                 <Slicer />
+              </Route>
+              <Route path="/stl-generator">
+                <STLGenerator />
               </Route>
             </Route>
 

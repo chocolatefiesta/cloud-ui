@@ -4,8 +4,7 @@ import Button from 'react-bootstrap/Button';
 import "./Controls.css"
 import { useCanvas } from '../Canvas/CanvasContext'
 import { UserContext } from '../../App/useUser';
-import { firebaseUserDrawingCollection } from '../../App/firebase'
-import { db } from '../../App/firebase'
+import { firestoreUserDrawingDocument } from '../../App/firebase'
 
 
 export function SendToPrintButton() {
@@ -18,8 +17,7 @@ export function SendToPrintButton() {
   }, [x])
 
   function sendToDB() {
-    return db.collection(firebaseUserDrawingCollection)
-      .doc(user.user.uid)
+    return firestoreUserDrawingDocument(user.user.uid)
       .set({
         x: x,
         y: y,
