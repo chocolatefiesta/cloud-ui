@@ -25,7 +25,6 @@ export default function Navigation() {
                     <Nav className="mr-auto">
                         {/* <Nav.Link href="/library">Библиотека моделей</Nav.Link> */}
                         <Nav.Link href="/draw-print">Печать рисунка</Nav.Link>
-                        <Nav.Link href="/draw">Рисование</Nav.Link>
                         <Nav.Link href="/stl-generator">Конструктор 3D текста</Nav.Link>
                         {/* <Nav.Link href="#">Слайсер</Nav.Link> */}
                     </Nav>

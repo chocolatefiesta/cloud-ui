@@ -30,7 +30,7 @@ export const CanvasProvider = ({ children }) => {
     context.scale(2, 2);
     context.lineCap = "round";
     context.strokeStyle = "brown";
-    context.lineWidth = 20;
+    context.lineWidth = 14;
     contextRef.current = context;
     setPrepared(true);
   };

@@ -63,10 +63,13 @@ export default function DrawPrint() {
       <Container>
         <Row>
           <Col sm={8}>
-            <Row><Plot data={plot.data} layout={{ showlegend: false, xaxis: { scaleanchor: "y", scaleratio: 1 }, height: window.innerHeight * 0.6 }} /></Row>
             <Row>
-              <Button as="a" target="_blank" href={gcodeFileUrl} className="control-button" size="lg" variant="primary" block download>Скачать GCODE</Button>
-              <Button disabled={true} className="control-button" variant="primary" block>Отправить в печать</Button>
+              <Plot data={plot.data} layout={{ showlegend: false, xaxis: { scaleanchor: "y", scaleratio: 1 }, height: window.innerHeight * 0.6 }} />
+            </Row>
+            <Row>
+              <Button as="a" target="_blank" href={gcodeFileUrl} className="control-button" size="lg" variant="primary" download>Скачать GCODE</Button>
+              <Button as="a" target="_blank" href='/draw' className="control-button" size="lg" variant="secondary">Рисование</Button>
+              <Button disabled={true} className="control-button" variant="secondary" size="lg">Отправить в печать</Button>
             </Row>
           </Col>
           <Col sm={4}>

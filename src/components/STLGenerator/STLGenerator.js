@@ -3,10 +3,12 @@ import { UserContext } from '../App/useUser'
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { ModelViewer } from 'react-3d-model-viewer'
+import Container from 'react-bootstrap/Container';
+
 import SettingsForm from './SettingsForm';
 import "./STLGenerator.css"
 import { fiestaCloudBackend } from '../App/config';
+import Viewer from './Viewer';
 
 function reducer(state, item) {
   return { ...state, ...item }
@@ -16,10 +18,15 @@ function sendGenerateSTL(uid, settings) {
   return fetch(fiestaCloudBackend + '/api/stl-generator/', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(settings)
+    body: JSON.stringify(settings),
   })
     .catch(error => console.log(error))
-    .then(data => data.json())
+    .then(data => {
+      if (data) {
+        return data.json()
+      }
+    }
+    )
 }
 
 export default function STLGenerator() {
@@ -36,35 +43,35 @@ export default function STLGenerator() {
   useEffect(() => {
     let mounted = true;
     sendGenerateSTL(user_id, {}).then(data => {
-      if (mounted) {
+      if (mounted && data != null) {
         setStlUrl(data.url)
       }
     });
     return () => mounted = false;
   }, [user_id])
 
-  if (stlUrl === '') {
-    return (<>Loading...</>)
-  }
+  // if (stlUrl === '') {
+  //   return (<>Loading...</>)
+  // }
 
   return (
     <>
-
-        <Row className="stl-generator-wrapper">
-          <Col className="stl-generator-col">
-            <Row>
-              <ModelViewer width="100%" aspectgRatio="100%" rotationSpeeds={[0,0,0]} initControlPosition={[0, 0, 0.4]} backgroundColor="#ffffff" url={stlUrl} />
-            </Row>
-            <Row>
-              <Button as="a" target="_blank" href={stlUrl} className="control-button" size="lg" variant="primary" block download>Скачать STL</Button>
-              <Button disabled={true} className="control-button" variant="primary" block>Отправить в печать</Button>
-            </Row>
+      <Container fluid="xl" className="stl-generator-wrapper">
+        <Row className="stl-generator-col">
+          <Col sm={7}>
+            <Viewer stlUrl={stlUrl}></Viewer>
           </Col>
-          <Col className="stl-generator-col">
+          <Col sm={5} >
             <SettingsForm updateSTL={updateSTL} setStlSettings={setStlSettings} />
           </Col>
         </Row>
-
+        <Row className="stl-generator-col">
+          <Col >
+            <Button as="a" target="_blank" href={stlUrl} className="control-button" size="lg" variant="primary" download>Скачать STL</Button>
+            <Button disabled={true} className="control-button" size="lg" variant="primary">Отправить в печать</Button>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }

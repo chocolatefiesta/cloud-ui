@@ -65,6 +65,7 @@ export default function SettingsForm({updatePlot, setDrawSettings}) {
                 </Form.Group>
             </Form>
             <Button onClick={() => updatePlot()}>Обновить</Button>
+            
         </>
     );
 }
