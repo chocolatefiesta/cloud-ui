@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect, useReducer } from 'react';
 import { UserContext } from '../App/useUser'
-import Plot from 'react-plotly.js';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -8,6 +7,7 @@ import Col from 'react-bootstrap/Col';
 import SettingsForm from './SettingsForm';
 import { storageUserDrawingGcodeRef } from '../App/firebase'
 import { fiestaCloudBackend } from '../App/config';
+import PlotViewer from './PlotViewer';
 
 function reducer(state, item) {
   return { ...state, ...item }
@@ -37,6 +37,7 @@ export default function DrawPrint() {
   const [drawSettings, setDrawSettings] = useReducer(reducer, {});
 
   function updatePlot() {
+    setPlot(null);
     getUserDrawingPlot(user_id, drawSettings).then(data => setPlot(JSON.parse(data)));
     getGcodeUrl(user_id).then(url => setGcodeFileUrl(url));
   }
@@ -60,25 +61,23 @@ export default function DrawPrint() {
 
   return (
     <>
-      <Container>
+      <Container fluid="xl">
         <Row>
           <Col sm={8}>
-            <Row>
-              <Plot data={plot.data} layout={{ showlegend: false, xaxis: { scaleanchor: "y", scaleratio: 1 }, height: window.innerHeight * 0.6 }} />
-            </Row>
-            <Row>
-              <Button as="a" target="_blank" href={gcodeFileUrl} className="control-button" size="lg" variant="primary" download>Скачать GCODE</Button>
-              <Button as="a" target="_blank" href='/draw' className="control-button" size="lg" variant="secondary">Рисование</Button>
-              <Button disabled={true} className="control-button" variant="secondary" size="lg">Отправить в печать</Button>
-            </Row>
+            <PlotViewer plotData={plot}></PlotViewer>
           </Col>
-          <Col sm={4}>
-            <SettingsForm updatePlot={updatePlot} setDrawSettings={setDrawSettings} />
+          <Col sm={4} >
+          <SettingsForm updatePlot={updatePlot} setDrawSettings={setDrawSettings} />
           </Col>
         </Row>
-
+        <Row>
+          <Col >
+          <Button as="a" target="_blank" href={gcodeFileUrl} className="control-button" size="lg" variant="primary" download>Скачать GCODE</Button>
+              <Button as="a" target="_blank" href='/draw' className="control-button" size="lg" variant="secondary">Рисование</Button>
+              <Button disabled={true} className="control-button" variant="secondary" size="lg">Отправить в печать</Button>
+          </Col>
+        </Row>
       </Container>
-
 
     </>
   );

@@ -26,9 +26,9 @@ export default function Login({ setUser }) {
     <div className="text-center login-wrapper">
         <Form className="form-signin" onSubmit={handleSubmit}>
           <img className="mb-4" src={logo} alt="" width="120"></img>
-          <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+          <h1 className="h3 mb-3 font-weight-normal">Авторизация</h1>
           <Form.Group controlId="inputEmail">
-            <Form.Label className="sr-only">Email address</Form.Label>
+            <Form.Label className="sr-only">Email адрес</Form.Label>
             <Form.Control type="email" placeholder="Enter email" onChange={e => setEmail(e.target.value)} />
             <Form.Text className="text-danger">
               {error}
@@ -36,11 +36,11 @@ export default function Login({ setUser }) {
           </Form.Group>
 
           <Form.Group controlId="inputPassword">
-            <Form.Label className="sr-only">Password</Form.Label>
+            <Form.Label className="sr-only">Пароль</Form.Label>
             <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
           </Form.Group>
           <Button className="btn btn-lg btn-primary btn-block" type="submit">
-            Submit
+            Войти
         </Button>
         </Form>
     </div>
