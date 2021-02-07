@@ -14,19 +14,34 @@ function reducer(state, item) {
   return { ...state, ...item }
 }
 
+function fetchRetry(url, options = {}, retries = 3) {
+  return fetch(url, options)
+    .then(res => {
+      if (res.ok) return res.json()
+      if (retries > 0) {
+        return fetchRetry(url, options, retries - 1)
+      } else {
+        throw new Error(res)
+      }
+    })
+    .catch(error => {
+      if (retries > 0) {
+        return fetchRetry(url, options, retries - 1)
+      } else {
+        throw new Error(error)
+      }
+    }
+    )
+}
+
 function sendGenerateSTL(uid, settings) {
-  return fetch(fiestaCloudBackend + '/api/stl-generator/', {
+  return fetchRetry(fiestaCloudBackend + '/api/stl-generator/', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(settings),
   })
     .catch(error => console.log(error))
-    .then(data => {
-      if (data) {
-        return data.json()
-      }
-    }
-    )
+    .then(data => data)
 }
 
 export default function STLGenerator() {
@@ -37,7 +52,7 @@ export default function STLGenerator() {
 
   function updateSTL() {
     setStlUrl('');
-    sendGenerateSTL(user_id, stlSettings).then(data => setStlUrl(data.url));
+    sendGenerateSTL(user_id, stlSettings).then(data => { if (data) setStlUrl(data.url) });
   }
 
   useEffect(() => {
@@ -50,14 +65,10 @@ export default function STLGenerator() {
     return () => mounted = false;
   }, [user_id])
 
-  // if (stlUrl === '') {
-  //   return (<>Loading...</>)
-  // }
-
   return (
     <>
       <Container fluid="xl" className="stl-generator-wrapper">
-        <Row className="stl-generator-col">
+        <Row>
           <Col sm={7}>
             <Viewer stlUrl={stlUrl}></Viewer>
           </Col>
@@ -65,7 +76,7 @@ export default function STLGenerator() {
             <SettingsForm updateSTL={updateSTL} setStlSettings={setStlSettings} />
           </Col>
         </Row>
-        <Row className="stl-generator-col">
+        <Row>
           <Col >
             <Button as="a" target="_blank" href={stlUrl} className="control-button" size="lg" variant="primary" download>Скачать STL</Button>
             <Button disabled={true} className="control-button" size="lg" variant="primary">Отправить в печать</Button>
