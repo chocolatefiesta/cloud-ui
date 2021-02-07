@@ -55,10 +55,8 @@ export const CanvasProvider = ({ children }) => {
     const { offsetX, offsetY } = nativeEvent;
     contextRef.current.lineTo(offsetX, offsetY);
     contextRef.current.stroke();
-    if (counter % 2 === 0) {
-      setX([...x, offsetX]);
-      setY([...y, offsetY]);
-    };
+    setX([...x, offsetX]);
+    setY([...y, offsetY]);
     setCounter();
   };
 
