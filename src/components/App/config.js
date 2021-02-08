@@ -1,1 +1,1 @@
-export const fiestaCloudBackend = 'http://92.223.65.161';
+export const fiestaCloudBackend = 'https://api.chocolatefiesta.ru';
