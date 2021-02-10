@@ -2,6 +2,8 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
+import "firebase/analytics";
+
 
 export const firebaseConfig = {
     apiKey: "AIzaSyDsEXIV0OTzWuRX4XBiVB4a-3w4bP_fnCs",
@@ -34,6 +36,7 @@ firebase.initializeApp(firebaseConfig);
 export const auth = firebase.auth();
 export const db = firebase.firestore();
 export const storage = firebase.storage();
+export const analytics = firebase.analytics();
 
 export const firestoreUserDrawingDocument = (uid) => {
   return db.collection(firestoreUserDrawingCollection).doc(uid)
