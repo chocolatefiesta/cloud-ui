@@ -18,7 +18,7 @@ export default function Navigation() {
         <div className={classes.wrapper}>
             <Navbar className="justify-content-between" expand="lg">
                 <Navbar.Brand href="/">
-                    Chocolate Fiesta Cloud
+                    Chocolate Fiesta Cloud β
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
