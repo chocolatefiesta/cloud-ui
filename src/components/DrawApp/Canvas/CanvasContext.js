@@ -1,10 +1,7 @@
-import React, { useContext, useReducer, useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 
 export const CanvasContext = React.createContext();
 
-function count(state) {
-  return state + 1
-}
 
 export const CanvasProvider = ({ children }) => {
   const [isPrepared, setPrepared] = useState(false)
@@ -14,7 +11,6 @@ export const CanvasProvider = ({ children }) => {
   const [x, setX] = useState([]);
   const [y, setY] = useState([]);
   const [stops, setStops] = useState([]);
-  const [counter, setCounter] = useReducer(count, 0)
 
   const prepareCanvas = () => {
     if (isPrepared) { return }
@@ -36,7 +32,7 @@ export const CanvasProvider = ({ children }) => {
   };
 
   const startDrawing = ({ nativeEvent }) => {
-    const { offsetX, offsetY } = nativeEvent;
+    const { offsetX, offsetY } = getEventPosition(nativeEvent);
     contextRef.current.beginPath();
     contextRef.current.moveTo(offsetX, offsetY);
     setIsDrawing(true);
@@ -52,12 +48,24 @@ export const CanvasProvider = ({ children }) => {
     if (!isDrawing) {
       return;
     }
-    const { offsetX, offsetY } = nativeEvent;
+    const { offsetX, offsetY } = getEventPosition(nativeEvent);
     contextRef.current.lineTo(offsetX, offsetY);
     contextRef.current.stroke();
     setX([...x, offsetX]);
     setY([...y, offsetY]);
-    setCounter();
+  };
+
+  const getEventPosition = (nativeEvent) => {
+    console.log(nativeEvent.type);
+    if (nativeEvent.type === "mousemove" || nativeEvent.type === "mousedown") {
+      const { offsetX, offsetY } = nativeEvent;
+      return {offsetX, offsetY}
+    } else if (nativeEvent.type === "touchstart" || nativeEvent.type === "touchmove") {
+      const rect = nativeEvent.target.getBoundingClientRect(); 
+      const offsetX = nativeEvent.touches[0].pageX - rect.left;
+      const offsetY = nativeEvent.touches[0].pageY - rect.top;;
+      return {offsetX, offsetY}
+    }
   };
 
   const clearCanvas = () => {
