@@ -8,18 +8,11 @@ import SettingsForm from './SettingsForm';
 import { storageUserDrawingGcodeRef } from '../App/firebase'
 import { fiestaCloudBackend } from '../App/config';
 import PlotViewer from './PlotViewer';
+import * as Sentry from "@sentry/react";
+
 
 function reducer(state, item) {
   return { ...state, ...item }
-}
-
-function getUserDrawingPlot(uid, settings) {
-  return fetch(fiestaCloudBackend + '/api/user/' + uid + "/drawing/", {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(settings)
-  })
-    .then(data => data.json())
 }
 
 function getGcodeUrl(uid) {
@@ -33,12 +26,40 @@ export default function DrawPrint() {
   const { user } = useContext(UserContext);
   const user_id = user.user.uid;
   const [gcodeFileUrl, setGcodeFileUrl] = useState('#');
-  const [plot, setPlot] = useState('');
+  const [plot, setPlot] = useState(null);
+  const [fetchError, setFetchError] = useState(null);
   const [drawSettings, setDrawSettings] = useReducer(reducer, {});
 
-  function updatePlot() {
+  function getUserDrawingPlot(uid, settings) {
+    setFetchError(null);
+    setFetchError(null);
     setPlot(null);
-    getUserDrawingPlot(user_id, drawSettings).then(data => setPlot(JSON.parse(data)));
+    return fetch(fiestaCloudBackend + '/api/user/' + uid + "/drawing/", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(settings)
+    })
+      .then(res => {
+        console.log(res)
+        if (res.status === 201 | res.status === 200) {
+          return res.json()
+        } else if (res.status === 204) {
+          setFetchError('Рисунок не найден. Перейдите на страницу "Рисование" и отправьте рисунок в печать');
+        } else {
+          setFetchError('Ошибка загрузки рисунка. Попробуйте позже.');
+        }
+        throw new Error(res)
+      })
+      .then(data => {
+        setPlot(JSON.parse(data))
+      })
+      .catch(error => {
+        Sentry.captureException(new Error(error));
+      })
+  }
+
+  function updatePlot() {
+    getUserDrawingPlot(user_id, drawSettings)
     getGcodeUrl(user_id).then(url => setGcodeFileUrl(url));
   }
 
@@ -51,11 +72,6 @@ export default function DrawPrint() {
         }
       })
     getUserDrawingPlot(user_id, {})
-      .then(data => {
-        if (mounted) {
-          setPlot(JSON.parse(data));
-        }
-      })
     return () => mounted = false;
   }, [user_id])
 
@@ -64,17 +80,17 @@ export default function DrawPrint() {
       <Container fluid="xl">
         <Row>
           <Col sm={8}>
-            <PlotViewer plotData={plot}></PlotViewer>
+            <PlotViewer fetchError={fetchError} plotData={plot}></PlotViewer>
           </Col>
           <Col sm={4} >
-          <SettingsForm updatePlot={updatePlot} setDrawSettings={setDrawSettings} />
+            <SettingsForm updatePlot={updatePlot} setDrawSettings={setDrawSettings} />
           </Col>
         </Row>
         <Row>
           <Col >
-          <Button as="a" target="_blank" href={gcodeFileUrl} className="control-button" size="lg" variant="primary" download>Скачать GCODE</Button>
-              <Button as="a" target="_blank" href='/draw' className="control-button" size="lg" variant="secondary">Рисование</Button>
-              <Button disabled={true} className="control-button" variant="secondary" size="lg">Отправить в печать</Button>
+            <Button as="a" target="_blank" href={gcodeFileUrl} className="control-button" size="lg" variant="primary" download>Скачать GCODE</Button>
+            <Button as="a" target="_blank" href='/draw' className="control-button" size="lg" variant="secondary">Рисование</Button>
+            <Button disabled={true} className="control-button" variant="secondary" size="lg">Отправить в печать</Button>
           </Col>
         </Row>
       </Container>

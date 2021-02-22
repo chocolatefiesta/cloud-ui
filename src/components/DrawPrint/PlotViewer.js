@@ -1,9 +1,19 @@
 import React, {useEffect} from 'react';
 import Plot from 'react-plotly.js';
 import Spinner from 'react-bootstrap/Spinner';
+import Alert from 'react-bootstrap/Alert';
+
 
 export default function PlotViewer(props) {
-    useEffect(() => {}, [props.plotData]); 
+    useEffect(() => {}, [props.plotData, props.fetchError]); 
+
+    if (props.fetchError) {
+        return (<>
+            <Alert variant='danger'>
+                {props.fetchError}
+            </Alert>
+        </>)
+    }
 
     if (!props.plotData) {
         return (<>

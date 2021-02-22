@@ -13,7 +13,6 @@ const useStyles = createUseStyles({
 export default function Navigation() {
     const classes = useStyles();
     const { user, removeUser } = useContext(UserContext);
-    console.log(user);
     return (
         <div className={classes.wrapper}>
             <Navbar className="justify-content-between" expand="lg">
