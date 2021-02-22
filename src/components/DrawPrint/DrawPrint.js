@@ -41,7 +41,7 @@ export default function DrawPrint() {
     })
       .then(res => {
         console.log(res)
-        if (res.status === 201 | res.status === 200) {
+        if (res.status === 201 || res.status === 200) {
           return res.json()
         } else if (res.status === 204) {
           setFetchError('Рисунок не найден. Перейдите на страницу "Рисование" и отправьте рисунок в печать');

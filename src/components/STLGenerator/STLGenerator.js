@@ -19,7 +19,9 @@ function reducer(state, item) {
 function fetchRetry(url, options = {}, retries = 3) {
   return fetch(url, options)
     .then(res => {
-      if (res.ok) return res.json()
+      if (res.ok) {
+        return res.json()
+      }
       if (retries > 0) {
         return fetchRetry(url, options, retries - 1)
       } else {
@@ -44,23 +46,29 @@ export default function STLGenerator() {
   const [fetchStlError, setfetchStlError] = useState(false);
 
   function sendGenerateSTL(uid, settings) {
+    setStlUrl('');
+    setfetchStlError(false);
     return fetchRetry(fiestaCloudBackend + '/api/stl-generator/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(settings),
     })
+      .then(data => {
+        if (data) {
+          setStlUrl(data.url)
+        } else {
+          setfetchStlError(true);
+          Sentry.captureException(new Error(data));
+        }
+      })
       .catch(error => {
         setfetchStlError(true);
         Sentry.captureException(new Error(error));
       })
-      .then(data => {
-        return data
-      })
   }
 
   function updateSTL() {
-    setStlUrl('');
-    sendGenerateSTL(user_id, stlSettings).then(data => { if (data) { setfetchStlError(false); setStlUrl(data.url) } });
+    sendGenerateSTL(user_id, stlSettings);
   }
 
   useEffect(() => {
