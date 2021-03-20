@@ -18,6 +18,9 @@ export default function Viewer(props) {
 
     if (props.stlUrl === '') {
         return (<>
+            <Alert variant='primary'>
+                Выполняется генерация модели. Процесс может занять до 1 минуты.
+            </Alert>
             <Spinner animation="border" role="status">
                 <span className="sr-only">Loading...</span>
             </Spinner>

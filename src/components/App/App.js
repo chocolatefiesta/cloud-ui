@@ -30,7 +30,6 @@ function App() {
             <Route path="/">
               <Navigation />
               <Route exact path="/">
-                {/* <Library /> */}
                 <DrawPrint />
               </Route>
               <Route path="/draw-print">
