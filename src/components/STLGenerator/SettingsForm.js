@@ -6,11 +6,11 @@ import Button from 'react-bootstrap/Button';
 
 export default function SettingsForm({ updateSTL, setStlSettings }) {
     const fontsList = [
-        {"value": "Pacifico:style=Regular", "title": "Pacifico"},
-        {"value": "OpenSans:style=BoldItalic", "title": "OpenSans Bold Italic"},
-        {"value": "OpenSans:style=Bold", "title": "OpenSans Bold"},
-        {"value": "Vollkorn:style=Black", "title": "Vollkorn Black"},
-        {"value": "Vollkorn:style=BlackItalic", "title": "Vollkorn Black Italic"},
+        {"value": "Pacifico", "title": "Pacifico"},
+        {"value": "Liberation Sans:style=Bold", "title": "Sans Bold"},
+        {"value": "Liberation Sans:style=Bold Italic", "title": "Sans Bold Italic"},
+        {"value": "Liberation Serif:style=Bold", "title": "Serif Bold"},
+        {"value": "Liberation Serif:style=Bold Italic", "title": "Serif Bold Italic"},
     ]
 
     return (
