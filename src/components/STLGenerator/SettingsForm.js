@@ -8,9 +8,7 @@ export default function SettingsForm({ updateSTL, setStlSettings }) {
     const fontsList = [
         {"value": "Pacifico", "title": "Pacifico"},
         {"value": "Liberation Sans:style=Bold", "title": "Sans Bold"},
-        {"value": "Liberation Sans:style=Bold Italic", "title": "Sans Bold Italic"},
         {"value": "Liberation Serif:style=Bold", "title": "Serif Bold"},
-        {"value": "Liberation Serif:style=Bold Italic", "title": "Serif Bold Italic"},
     ]
 
     return (
