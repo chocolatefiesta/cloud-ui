@@ -4,7 +4,14 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-export default function SettingsForm({updateSTL, setStlSettings}) {
+export default function SettingsForm({ updateSTL, setStlSettings }) {
+    const fontsList = [
+        {"value": "Pacifico:style=Regular", "title": "Pacifico"},
+        {"value": "OpenSans:style=BoldItalic", "title": "OpenSans Bold Italic"},
+        {"value": "OpenSans:style=Bold", "title": "OpenSans Bold"},
+        {"value": "Vollkorn:style=Black", "title": "Vollkorn Black"},
+        {"value": "Vollkorn:style=BlackItalic", "title": "Vollkorn Black Italic"},
+    ]
 
     return (
         <>
@@ -54,7 +61,11 @@ export default function SettingsForm({updateSTL, setStlSettings}) {
                 <Form.Group as={Row}>
                     <Form.Label column >Шрифт</Form.Label>
                     <Col >
-                        <Form.Control size="sm" type="text" defaultValue="Pacifico:style=Bold" onChange={e => setStlSettings({ font: e.target.value })} />
+                        <Form.Control size="sm" as="select" defaultValue={fontsList[0].value} onChange={e => setStlSettings({ font: e.target.value })}>
+                            {fontsList.map(font => {
+                                return (<option value={font.value}>{font.title}</option>)
+                            })}
+                        </Form.Control>
                     </Col>
                 </Form.Group>
             </Form>
@@ -62,5 +73,3 @@ export default function SettingsForm({updateSTL, setStlSettings}) {
         </>
     );
 }
-
-
