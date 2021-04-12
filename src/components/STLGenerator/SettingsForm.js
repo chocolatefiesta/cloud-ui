@@ -15,49 +15,49 @@ export default function SettingsForm({ updateSTL, setStlSettings }) {
         <>
             <Form>
                 <Form.Group as={Row}>
-                    <Form.Label column >Текст</Form.Label>
+                    <Form.Label column >Text</Form.Label>
                     <Col >
                         <Form.Control size="sm" type="text" defaultValue="Chocolate Fiesta" onChange={e => setStlSettings({ text: e.target.value })} />
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row}>
-                    <Form.Label column >Высота изделия, мм</Form.Label>
+                    <Form.Label column >Heigth, mm</Form.Label>
                     <Col >
                         <Form.Control size="sm" type="number" step="1" defaultValue="5" onChange={e => setStlSettings({ depth: e.target.value })} />
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row}>
-                    <Form.Label column >Размер изделия, мм</Form.Label>
+                    <Form.Label column >Width, mm</Form.Label>
                     <Col >
                         <Form.Control size="sm" type="number" step="1" defaultValue="100" onChange={e => setStlSettings({ width: e.target.value })} />
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row}>
-                    <Form.Label column >Высота (z) подложки, мм</Form.Label>
+                    <Form.Label column >Heigth of foundation, mm</Form.Label>
                     <Col >
                         <Form.Control size="sm" type="number" step="10" defaultValue="2" onChange={e => setStlSettings({ foundation_depth: e.target.value })} />
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row}>
-                    <Form.Label column >Размер подложки, мм</Form.Label>
+                    <Form.Label column >Width of foundation, mm</Form.Label>
                     <Col >
                         <Form.Control size="sm" type="number" step="0.1" defaultValue="2" onChange={e => setStlSettings({ foundation_offset: e.target.value })} />
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row}>
-                    <Form.Label column >Ширина подложки-соединителя слов, мм</Form.Label>
+                    <Form.Label column >Word merger foundation width, mm</Form.Label>
                     <Col >
                         <Form.Control size="sm" type="number" step="1" defaultValue="7" onChange={e => setStlSettings({ foundation_joiner_height: e.target.value })} />
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row}>
-                    <Form.Label column >Межбуквенное расстояние</Form.Label>
+                    <Form.Label column >Letter spacing, mm</Form.Label>
                     <Col >
                         <Form.Control size="sm" type="number" defaultValue="1.0" onChange={e => setStlSettings({ text_spacing: e.target.value })} />
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row}>
-                    <Form.Label column >Шрифт</Form.Label>
+                    <Form.Label column >Font</Form.Label>
                     <Col >
                         <Form.Control size="sm" as="select" defaultValue={fontsList[0].value} onChange={e => setStlSettings({ font: e.target.value })}>
                             {fontsList.map(font => {
@@ -67,7 +67,7 @@ export default function SettingsForm({ updateSTL, setStlSettings }) {
                     </Col>
                 </Form.Group>
             </Form>
-            <Button onClick={() => updateSTL()}>Сгенерировать</Button>
+            <Button onClick={() => updateSTL()}>Generate</Button>
         </>
     );
 }

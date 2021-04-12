@@ -22,14 +22,14 @@ export default function Navigation() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link href="/library">Библиотека моделей</Nav.Link>
-                        <Nav.Link href="/draw-print">Печать рисунка</Nav.Link>
-                        <Nav.Link href="/stl-generator">Конструктор 3D текста</Nav.Link>
+                        <Nav.Link href="/library">Models Library</Nav.Link>
+                        <Nav.Link href="/draw-print">Drawing Print</Nav.Link>
+                        <Nav.Link href="/stl-generator">3D Text Generator</Nav.Link>
                         {/* <Nav.Link href="#">Слайсер</Nav.Link> */}
                     </Nav>
                     <Nav className="ml-auto">
-                        <Nav.Link disabled={true}>Вы вошли как {user.user.email}</Nav.Link>
-                        <Nav.Link onClick={removeUser}>Выйти</Nav.Link>
+                        <Nav.Link disabled={true}>You are logged in as {user.user.email}</Nav.Link>
+                        <Nav.Link onClick={removeUser}>Log out</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
