@@ -94,8 +94,8 @@ export default function STLGenerator() {
         </Row>
         <Row>
           <Col >
-            <Button as="a" target="_blank" href={stlUrl} className="control-button" size="lg" variant="primary" download>Скачать STL</Button>
-            <Button disabled={true} className="control-button" size="lg" variant="primary">Отправить в печать</Button>
+            <Button as="a" target="_blank" href={stlUrl} className="control-button" size="lg" variant="primary" download>Download STL</Button>
+            <Button disabled={true} className="control-button" size="lg" variant="primary">Send to printer</Button>
           </Col>
         </Row>
       </Container>
