@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
-import { Card, Badge } from 'react-bootstrap';
+import { Card, Badge, CardDeck, CardGroup } from 'react-bootstrap';
 import { ModelContext } from './ModelContext';
+import './Model.css';
+
 
 export default function ModelCard({ model, ...props }) {
     const { setCurrentModel } = useContext(ModelContext);
@@ -9,15 +11,15 @@ export default function ModelCard({ model, ...props }) {
         let thumbnail;
         images.some((el) => {
             thumbnail = el.image.src;
-            return el.image.is_thumbnail;
+            return el.is_thumbnail;
         });
         return thumbnail;
     }
 
     return (
         <>
-            <Card sm={2} key={model.id} onClick={() => setCurrentModel(model)} role="button">
-                <Card.Img variant="top" src={getThumbnailImage(model.images)} />
+            <Card className="model-card" key={model.id} onClick={() => setCurrentModel(model)} role="button">
+                <Card.Img className="model-card-image" variant="top" src={getThumbnailImage(model.images)} />
                 <Card.Body>
                     <Card.Title>{model.name} {model.id}</Card.Title>
                     <Card.Text>
@@ -29,6 +31,7 @@ export default function ModelCard({ model, ...props }) {
                     <Badge variant="secondary">{model.colors_num}</Badge>{' '}
                 </Card.Body>
             </Card>
+
         </>
     )
 }
