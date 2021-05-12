@@ -18,6 +18,7 @@ export const firebaseConfig = {
 export const storageUserFolder = 'user';
 export const firestoreUserDrawingCollection = 'user-drawing';
 export const firestoreModelsCollectionPath = 'storage/model-library/public';
+export const firestoreTagsCollectionPath = 'storage/model-library/tags';
 export const userDrawingGcodeFilename = 'drawing.gcode';
 
 export const firestoreAutoId = () => {
@@ -45,6 +46,10 @@ export const firestoreUserDrawingDocument = (uid) => {
 
 export const firestoreModelsCollection = () => {
   return db.collection(firestoreModelsCollectionPath)
+}
+
+export const firestoreTagsCollection = () => {
+  return db.collection(firestoreTagsCollectionPath)
 }
 
 export const storageUserDrawingGcodeRef = (uid) => {

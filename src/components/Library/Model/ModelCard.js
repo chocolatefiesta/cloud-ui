@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Card, Badge, CardDeck, CardGroup } from 'react-bootstrap';
+import { Card, Badge } from 'react-bootstrap';
 import { ModelContext } from './ModelContext';
 import './Model.css';
 
@@ -21,9 +21,9 @@ export default function ModelCard({ model, ...props }) {
             <Card className="model-card" key={model.id} onClick={() => setCurrentModel(model)} role="button">
                 <Card.Img className="model-card-image" variant="top" src={getThumbnailImage(model.images)} />
                 <Card.Body>
-                    <Card.Title>{model.name} {model.id}</Card.Title>
+                    <Card.Title>{model.name}</Card.Title>
                     <Card.Text>
-                        <p dangerouslySetInnerHTML={{ __html: model.description }} />
+                        <span dangerouslySetInnerHTML={{ __html: model.description }} />
                     </Card.Text>
                     <Badge variant="secondary">{model.print_time} минут</Badge>{' '}
                     <Badge variant="secondary">{model.pieces_num} шт.</Badge>{' '}

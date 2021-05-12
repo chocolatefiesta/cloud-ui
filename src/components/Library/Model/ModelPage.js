@@ -25,7 +25,7 @@ export default function ModelPage() {
                 </Col>
                 <Col sm={7} >
                     <h2>{model.name}</h2>
-                    <p dangerouslySetInnerHTML={{ __html: model.description }} />
+                    <span dangerouslySetInnerHTML={{ __html: model.description }} />
                     <h4>
                         <Badge variant="secondary">{model.print_time} минут</Badge>{' '}
                         <Badge variant="secondary">{model.pieces_num} шт.</Badge>{' '}
