@@ -41,7 +41,10 @@ export default function Login({ setUser }) {
           </Form.Group>
           <Button className="btn btn-lg btn-primary btn-block" type="submit">
             Войти
-        </Button>
+          </Button>
+          <Button className="btn btn-lg btn-secondary btn-block"  onClick={() => window.open("https://chocolatefiesta.ru/cloud/", '_blank')}>
+            Получить доступ
+          </Button>
         </Form>
     </div>
   )
