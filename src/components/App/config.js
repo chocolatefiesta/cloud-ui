@@ -1,1 +1,1 @@
-export const fiestaCloudBackend = 'https://api.chocolatefiesta.ru';
+export const fiestaCloudBackend = 'https://cloud-api.chocolatefiesta.ru';
