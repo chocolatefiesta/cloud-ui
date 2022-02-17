@@ -1,7 +1,7 @@
 name: Deploy Cloud-UI
 
 env:
-  CLOUD_API_URL: ${{ secrets.CLOUD_API_URL }}
+  REACT_APP_CLOUD_API_URL: ${{ secrets.REACT_APP_CLOUD_API_URL }}
 
 # Controls when the action will run. 
 on:
