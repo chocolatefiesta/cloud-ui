@@ -10,7 +10,7 @@ export default function SettingsForm({ updateSTL, setStlSettings }) {
     const fontsList = [
         { value: "Pacifico", title: "Pacifico", class: "fontPacifico" },
         { value: "Liberation Sans:style=Bold", title: "Sans Bold", class: "fontPTSans" },
-        { value: "Liberation Serif:style=Bold", title: "Serif Bold", class: "fontPTSerif" },
+        { value: "Liberation Serif:style=Bold Italic", title: "Serif Bold", class: "fontPTSerif" },
         { value: "Raleway:style=Black", title: "Raleway Black", class: "fontRaleway" },
         { value: "Lobster", title: "Lobster", class: "fontLobster" },
         { value: "Vollkorn:style=Black", title: "Vollkorn", class: "fontVollkorn" },
