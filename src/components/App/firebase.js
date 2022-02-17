@@ -67,8 +67,9 @@ export const retrieveCachedCollection = async (collection) => {
 
     if (!items) {
       items = [];
-      const invalidateAt = now + 5 * 60 * 1000; // 5 minutes
-      const models_data = await collection.orderBy("name").get();
+      // const invalidateAt = now + 5 * 60 * 1000; // 5 minutes
+      const invalidateAt = now +  1000; // 5 minutes
+      const models_data = await collection.get();
       models_data.docs.forEach(item => {
         items = [...items, { ...item.data(), id: item.id }]
       });

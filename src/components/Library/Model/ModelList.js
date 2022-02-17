@@ -14,12 +14,12 @@ export default function ModelList() {
 
   const fetchModels = async () => {
     setLoading(true);
-    let items = await retrieveCachedCollection(firestoreModelsCollection());
+    let items = await retrieveCachedCollection(firestoreModelsCollection().orderBy("name"));
     setModels(prevState => {
       return [...items];
     });
 
-    let tags = await retrieveCachedCollection(firestoreTagsCollection());
+    let tags = await retrieveCachedCollection(firestoreTagsCollection().orderBy("name"));
     setTags(prevState => {
       return [...tags];
     });
@@ -45,10 +45,7 @@ export default function ModelList() {
   return (
     <div className="model-list-wrapper">
       <Container>
-        {isLoading &&
-          <Row><Spinner animation="border" role="status">
-            <span className="visually-hidden"></span>
-          </Spinner></Row>}
+
         <Row className="model-tags-row">
           <Tab.Container id="model-tags-tabs" defaultActiveKey="0">
             <Nav variant="pills">
@@ -83,7 +80,10 @@ export default function ModelList() {
         </Form>
 
         <Row>
-
+          {isLoading &&
+            <Row className='spiner-wrapper'><Spinner animation="border" role="status">
+              <span className="visually-hidden"></span>
+            </Spinner></Row>}
           {
             models && filteredModels().map((model, idx) => {
               return (

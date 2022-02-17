@@ -3,12 +3,19 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import "./SettingsForm.css"
+
 
 export default function SettingsForm({ updateSTL, setStlSettings }) {
     const fontsList = [
-        {"value": "Pacifico", "title": "Pacifico"},
-        {"value": "Liberation Sans:style=Bold", "title": "Sans Bold"},
-        {"value": "Liberation Serif:style=Bold", "title": "Serif Bold"},
+        { value: "Pacifico", title: "Pacifico", class: "fontPacifico" },
+        { value: "Liberation Sans:style=Bold", title: "Sans Bold", class: "fontPTSans" },
+        { value: "Liberation Serif:style=Bold", title: "Serif Bold", class: "fontPTSerif" },
+        { value: "Raleway:style=Black", title: "Raleway Black", class: "fontRaleway" },
+        { value: "Lobster", title: "Lobster", class: "fontLobster" },
+        { value: "Vollkorn:style=Black", title: "Vollkorn", class: "fontVollkorn" },
+        { value: "Alegreya Sans:style=Black Italic", title: "Alegreya Sans", class: "fontAlegreya" },
+        { value: "Vesterbro", title: "Vesterbro", class: "fontVollkorn" },
     ]
 
     return (
@@ -58,12 +65,23 @@ export default function SettingsForm({ updateSTL, setStlSettings }) {
                 </Form.Group>
                 <Form.Group as={Row}>
                     <Form.Label column >Font</Form.Label>
-                    <Col >
-                        <Form.Control size="sm" as="select" defaultValue={fontsList[0].value} onChange={e => setStlSettings({ font: e.target.value })}>
-                            {fontsList.map(font => {
-                                return (<option value={font.value}>{font.title}</option>)
+                    <Col>
+                        <div key="defaultradio" className="mb-3">
+                            {fontsList.map((font, id) => {
+                                return (
+                                    <Form.Check
+                                        defaultChecked={id === 0}
+                                        id={font.value}
+                                        type='radio'
+                                        label={font.title}
+                                        name='radio-font'
+                                        className={font.class}
+                                        key={font.value}
+                                        onChange={(e) => { console.log("UPDATE STATE"); setStlSettings({ font: e.target.id }) }}
+                                    />
+                                )
                             })}
-                        </Form.Control>
+                        </div>
                     </Col>
                 </Form.Group>
             </Form>
