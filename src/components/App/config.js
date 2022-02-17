@@ -1,2 +1,1 @@
-// export const fiestaCloudBackend = 'https://cloud-api.chocolatefiesta.ru';
-export const fiestaCloudBackend = 'http://localhost:8000';
+export const fiestaCloudBackend = process.env.REACT_APP_CLOUD_API_URL;
