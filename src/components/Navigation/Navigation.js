@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { UserContext } from '../App/useUser';
 import { createUseStyles } from 'react-jss';
-import { LinkContainer } from 'react-router-bootstrap';
+import { Link } from 'react-router-dom';
 
 const useStyles = createUseStyles({
     wrapper: {
@@ -17,16 +17,15 @@ export default function Navigation() {
     return (
         <div className={classes.wrapper}>
             <Navbar className="justify-content-between" expand="lg">
-                <LinkContainer to="/"><Navbar.Brand>
-                    Chocolate Fiesta Cloud β
-                </Navbar.Brand></LinkContainer>
+                <Navbar.Brand>
+                    <Link className="navbar-brand" to="/">Chocolate Fiesta Cloud β</Link>
+                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                        <LinkContainer to="/library"><Nav.Link>Models Library</Nav.Link></LinkContainer>
-                        <LinkContainer to="/draw-print"><Nav.Link>Drawing Print</Nav.Link></LinkContainer>
-                        <LinkContainer to="/stl-generator"><Nav.Link>3D Text Generator</Nav.Link></LinkContainer>
-                        {/* <Nav.Link href="#">Слайсер</Nav.Link> */}
+                        <Link className="nav-link" to="/library">Models Library</Link>
+                        <Link className="nav-link" to="/draw-print">Drawing Print</Link>
+                        <Link className="nav-link" to="/stl-generator">3D Text Generator</Link>
                     </Nav>
                     <Nav className="ml-auto">
                         <Nav.Link disabled={true}>You are logged in as {user.user.email}</Nav.Link>

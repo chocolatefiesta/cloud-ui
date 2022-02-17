@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Container, Row, Col, Tab, Nav } from 'react-bootstrap';
-import { firestoreModelsCollection, firestoreTagsCollection } from '../../App/firebase';
+import { Form, Container, Row, Col, Tab, Nav, Spinner } from 'react-bootstrap';
+import { firestoreModelsCollection, firestoreTagsCollection, retrieveCachedCollection } from '../../App/firebase';
 import ModelCard from './ModelCard';
 import './ModelList.css';
 
@@ -10,23 +10,20 @@ export default function ModelList() {
   const [tags, setTags] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTagId, setSelectedTagId] = useState(null);
+  const [isLoading, setLoading] = useState(false);
 
   const fetchModels = async () => {
-    const models_data = await firestoreModelsCollection().orderBy("name").get();
-    const tags_data = await firestoreTagsCollection().orderBy("name").get();
+    setLoading(true);
+    let items = await retrieveCachedCollection(firestoreModelsCollection());
+    setModels(prevState => {
+      return [...items];
+    });
 
-    models_data.docs.forEach(item => {
-      setModels(prevState => {
-        const item_data = { ...item.data(), id: item.id }
-        return [...prevState, item_data];
-      });
-    })
-    tags_data.docs.forEach(item => {
-      setTags(prevState => {
-        const item_data = { ...item.data(), id: item.id }
-        return [...prevState, item_data];
-      });
-    })
+    let tags = await retrieveCachedCollection(firestoreTagsCollection());
+    setTags(prevState => {
+      return [...tags];
+    });
+    setLoading(false);
   }
 
   const filteredModels = () => {
@@ -45,10 +42,13 @@ export default function ModelList() {
     fetchModels();
   }, [])
 
-
   return (
     <div className="model-list-wrapper">
       <Container>
+        {isLoading &&
+          <Row><Spinner animation="border" role="status">
+            <span className="visually-hidden"></span>
+          </Spinner></Row>}
         <Row className="model-tags-row">
           <Tab.Container id="model-tags-tabs" defaultActiveKey="0">
             <Nav variant="pills">
@@ -83,6 +83,7 @@ export default function ModelList() {
         </Form>
 
         <Row>
+
           {
             models && filteredModels().map((model, idx) => {
               return (
