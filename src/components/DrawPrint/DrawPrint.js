@@ -40,7 +40,6 @@ export default function DrawPrint() {
       body: JSON.stringify(settings)
     })
       .then(res => {
-        console.log(res)
         if (res.status === 201 || res.status === 200) {
           return res.json()
         } else if (res.status === 204) {

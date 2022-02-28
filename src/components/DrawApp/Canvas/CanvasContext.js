@@ -56,7 +56,6 @@ export const CanvasProvider = ({ children }) => {
   };
 
   const getEventPosition = (nativeEvent) => {
-    console.log(nativeEvent.type);
     if (nativeEvent.type === "mousemove" || nativeEvent.type === "mousedown") {
       const { offsetX, offsetY } = nativeEvent;
       return {offsetX, offsetY}

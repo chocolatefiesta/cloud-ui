@@ -1,8 +1,9 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import './App.css';
-import Login from '../Login/Login';
+import Login from '../Auth/Login';
+import Signup from '../Auth/Signup';
 import DrawPrint from '../DrawPrint/DrawPrint';
 import Library from '../Library/Library';
 import Navigation from '../Navigation/Navigation';
@@ -14,24 +15,18 @@ import STLGenerator from '../STLGenerator/STLGenerator';
 function App() {
   const { user, setUser, removeUser } = useUser();
 
-  if (!user) {
-    return <Login setUser={setUser} />
-  }
-
   return (
-    <>
-      <UserContext.Provider value={{ user, setUser, removeUser }} >
 
-        <BrowserRouter>
+    <UserContext.Provider value={{ user, setUser, removeUser }} >
+
+      <BrowserRouter>
+        {user ?
           <Switch>
             <Route exact path="/draw">
               <DrawApp />
             </Route>
             <Route path="/">
               <Navigation />
-              <Route exact path="/">
-                <DrawPrint />
-              </Route>
               <Route path="/draw-print">
                 <DrawPrint />
               </Route>
@@ -44,12 +39,29 @@ function App() {
               <Route path="/stl-generator">
                 <STLGenerator />
               </Route>
+              <Route path="/*">
+                <Redirect to="/draw-print" />
+              </Route>
             </Route>
-
+            
           </Switch>
-        </BrowserRouter>
-      </UserContext.Provider>
-    </>
+          :
+          <Switch>
+            <Route path="/login">
+              <Login/>
+            </Route>
+            <Route path="/signup">
+              <Signup/>
+            </Route>
+            <Route path="/*">
+              <Redirect to="/login" />
+            </Route>
+          </Switch>
+        }
+
+      </BrowserRouter>
+    </UserContext.Provider>
+
   );
 }
 
